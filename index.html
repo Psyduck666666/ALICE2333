@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alice2333 - GTAV Enhanced Free Mod Menu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="b5ea6c3bfffaa66e5deafb81396dedb4.jpg" type="image/x-icon">
+</head>
+<body>
+    <!-- 进入遮罩 -->
+    <div id="enterOverlay" class="enter-overlay">
+        <div class="enter-content">
+            <div class="enter-logo">
+                <img src="b5ea6c3bfffaa66e5deafb81396dedb4.jpg" alt="Alice2333">
+            </div>
+            <h2 class="enter-title"><span class="hero-title-gradient">Alice2333</span> Menu</h2>
+            <div class="enter-hint">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- 光效 -->
+    <div id="snowflakes">
+        <div class="ambient-orb"></div>
+        <div class="ambient-orb"></div>
+        <div class="ambient-orb"></div>
+    </div>
+
+    <!-- 视频 -->
+    <div class="bg-video-wrap">
+        <video class="bg-video" autoplay muted loop playsinline>
+            <source src="GTA5官方宣传片（2015）_哔哩哔哩_bilibili.mp4" type="video/mp4">
+        </video>
+        <div class="bg-video-overlay"></div>
+    </div>
+
+    <!-- 音乐 -->
+    <div id="music-player" class="music-player">
+        <div class="music-player-controls">
+            <button id="music-toggle" class="music-btn" title="播放/暂停">
+                <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+            </button>
+            <div class="volume-control">
+                <button id="volume-btn" class="music-btn" title="调节音量">
+                    <svg id="volume-high" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                    </svg>
+                    <svg id="volume-mute" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                    </svg>
+                </button>
+                <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="15" title="音量调节">
+            </div>
+            <button id="music-hide" class="music-btn" title="隐藏播放器">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="music-player-info">
+            <span class="music-title">背景音乐</span>
+        </div>
+        <audio id="audio" loop autoplay>
+            <source src="泽少 - Midnight City.mp3" type="audio/mpeg">
+            您的浏览器不支持音频播放
+        </audio>
+    </div>
+
+    <!-- 显示播放器 -->
+    <button id="music-show" class="music-show-btn" title="显示播放器">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/>
+        </svg>
+    </button>
+
+    <!-- 导航 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="b5ea6c3bfffaa66e5deafb81396dedb4.jpg" alt="Alice2333" class="logo-icon">
+                <span>Alice2333</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#features">功能</a></li>
+                <li><a href="#gallery">展示</a></li>
+                <li><a href="#download">下载</a></li>
+                <li><a href="#tutorial">教程</a></li>
+                <li><a href="#lua-download">Lua</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                <span>Free & Open</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="hero-title-gradient">Alice2333</span> Menu
+            </h1>
+            <p class="hero-subtitle">GTAV 增强版免费修改器</p>
+            <p class="hero-description">
+                专为 GTA5 增强版设计的免费修改器，由原小助手作者爱丽丝精心打造。
+                强大攻防、在线战局、任务辅助、持续每日高强度更新。
+            </p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-primary">立即下载</a>
+                <a href="#features" class="btn btn-secondary">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能 -->
+    <section id="features" class="features">
+        <div class="section-header">
+            <span class="section-label">FEATURES</span>
+            <h2 class="section-title">核心特性</h2>
+            <p class="section-subtitle">Alice2333 提供无与伦比的游戏体验</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon-bg">
+                    <svg class="feature-svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                </div>
+                <div class="feature-card-text">
+                    <h3>强大攻防</h3>
+                    <p>轻松踢出恶搞、崩溃玩家，拥有众多恶搞与崩溃功能</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-bg">
+                    <svg class="feature-svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <div class="feature-card-text">
+                    <h3>在线战局</h3>
+                    <p>支持开 BE 模式，公开战局安全刷金，任务辅助，联机功能</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-bg">
+                    <svg class="feature-svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                    </svg>
+                </div>
+                <div class="feature-card-text">
+                    <h3>趣味功能</h3>
+                    <p>丰富有趣的功能，超高游戏可玩性，支持 XML 载具与地图</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-bg">
+                    <svg class="feature-svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                </div>
+                <div class="feature-card-text">
+                    <h3>任务辅助</h3>
+                    <p>自动任务导航，快速完成目标，支持所有主线和支线任务</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-bg">
+                    <svg class="feature-svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V9h-2.8v9.09h2.8zM12 5.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z"/>
+                    </svg>
+                </div>
+                <div class="feature-card-text">
+                    <h3>恢复齐全</h3>
+                    <p>提升等级，解锁 GTA+ 会员，循环获取金钱，解锁各种物品</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-bg">
+                    <svg class="feature-svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-9 14l-4-4h8l-4 4zm0-12l4 4H7l4-4z"/>
+                    </svg>
+                </div>
+                <div class="feature-card-text">
+                    <h3>快捷操控</h3>
+                    <p>简洁优美的 UI 主题配色，操作得心应手</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 class="cta-title">Why not choose <span class="hero-title-gradient">excellence</span>?</h2>
+            <a href="#download" class="btn btn-primary">立即开始</a>
+        </div>
+    </section>
+
+    <!-- 展示 -->
+    <section id="gallery" class="gallery">
+        <div class="section-header">
+            <span class="section-label">GALLERY</span>
+            <h2 class="section-title">菜单展示</h2>
+            <p class="section-subtitle">Alice2333 菜单界面与功能演示</p>
+        </div>
+        <div class="gallery-carousel">
+            <div class="gallery-track" id="galleryTrack">
+            <div class="gallery-item">
+                <img src="爱丽丝功能图无水印.png" alt="Alice2333 菜单功能展示" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="829b93069ab6d22498d440f9560ddd0b.png" alt="Alice2333 菜单展示 1" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="fdb20702f23ef60831333c874980c039.jpg" alt="Alice2333 菜单展示 2" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="32a92dffe4bc33cb6a7508038e4fc76c.jpg" alt="Alice2333 菜单展示 3" class="gallery-image">
+            </div>
+            <div class="gallery-item video-gallery-item">
+                <video class="gallery-video" controls preload="auto" playsinline muted>
+                    <source src="a542abbe4f6da2e8192eed3071c3c0cf.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放
+                </video>
+                <div class="gallery-video-caption">防护某傻逼辅助的崩溃演示</div>
+            </div>
+        </div>
+            <button class="gallery-nav gallery-prev" id="galleryPrev">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            <button class="gallery-nav gallery-next" id="galleryNext">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="gallery-dots" id="galleryDots"></div>
+        <div class="gallery-note">
+            <p>更多截图即将更新</p>
+        </div>
+    </section>
+
+    <!-- 稳定运行 -->
+    <section id="stability" class="stability">
+        <div class="stability-banner">
+            <div class="stability-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                </svg>
+            </div>
+            <div class="stability-content">
+                <div class="stability-days" id="stabilityDays" data-start-date="2026-01-22">
+                    <span class="days-number" id="daysNumber">66</span>
+                    <span class="days-label">天</span>
+                </div>
+                <p class="stability-text">已稳定运行</p>
+            </div>
+            <div class="stability-features">
+                <div class="stability-feature">
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                    </span>
+                    <span>零封禁记录</span>
+                </div>
+                <div class="stability-feature">
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+                    </span>
+                    <span>每日更新</span>
+                </div>
+                <div class="stability-feature">
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                    </span>
+                    <span>过检测保护</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 下载 -->
+    <section id="download" class="download">
+        <div class="section-header">
+            <span class="section-label">DOWNLOAD</span>
+            <h2 class="section-title">立即下载</h2>
+            <p class="section-subtitle">开始提升您的游戏体验</p>
+        </div>
+        <div class="download-card">
+            <div class="download-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+            </div>
+            <h3>Alice2333 External Menu</h3>
+            <p class="version-info">最新版本 <span id="versionDate">V2026.03.28</span></p>
+            <p class="download-description">支持 GTA5 增强版，兼容最新游戏版本</p>
+            <div id="updateStatus" class="update-status">
+                <span>正在检查更新...</span>
+                <button id="refreshUpdate" class="refresh-update-btn" title="刷新检查">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- 未更新 -->
+            <div id="notUpdatedNotice" class="not-updated-notice" style="display: none;">
+                <span class="notice-text">今日菜单尚未更新，请耐心等待</span>
+            </div>
+
+            <!-- 更新日志 -->
+            <div class="changelog-inline">
+                <div class="changelog-inline-header">
+                    <h4>更新日志</h4>
+                </div>
+                <div class="changelog-inline-content" id="changelogContent">
+                    <div class="changelog-placeholder-mini">
+                        <p>暂无更新日志</p>
+                        <span>作者尚未发布更新说明</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="directDownload" class="btn btn-direct-download">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+                下载最新版本
+            </button>
+        </div>
+    </section>
+
+    <!-- 教程 -->
+    <section id="tutorial" class="tutorial">
+        <div class="section-header">
+            <span class="section-label">TUTORIAL</span>
+            <h2 class="section-title">使用教程</h2>
+            <p class="section-subtitle">详细的使用指南，助您快速上手</p>
+        </div>
+        <div class="tutorial-content">
+            <div class="tutorial-section">
+                <h3>重要提示</h3>
+                <div class="tutorial-card warning">
+                    <p>菜单适用于 GTA5 增强版，正常开启 BattlEye 使用</p>
+                    <p>菜单免费使用，无法承担封禁风险，自行删除即可</p>
+                    <p style="color: #f87171; font-weight: 600; margin-top: 8px;">禁止使用双开或多开菜单，否则后果自负</p>
+                    <p style="color: #fbbf24; font-weight: 500;">建议不要使用搜狗输入法以及搜狗的其他产品</p>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h3>默认键位</h3>
+                <div class="tutorial-card">
+                    <div class="key-grid">
+                        <div class="key-item">
+                            <span class="key-name">小键盘 -</span>
+                            <span class="key-desc">显示/隐藏菜单</span>
+                        </div>
+                        <div class="key-item">
+                            <span class="key-name">小键盘 8246</span>
+                            <span class="key-desc">控制上下左右</span>
+                        </div>
+                        <div class="key-item">
+                            <span class="key-name">小键盘 5</span>
+                            <span class="key-desc">确认</span>
+                        </div>
+                        <div class="key-item">
+                            <span class="key-name">小键盘 0</span>
+                            <span class="key-desc">返回</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h3>快捷键</h3>
+                <div class="tutorial-card">
+                    <div class="key-grid">
+                        <div class="key-item">
+                            <span class="key-name">F3</span>
+                            <span class="key-desc">跳过动画</span>
+                        </div>
+                        <div class="key-item">
+                            <span class="key-name">F4</span>
+                            <span class="key-desc">向前闪现</span>
+                        </div>
+                        <div class="key-item">
+                            <span class="key-name">F5</span>
+                            <span class="key-desc">传送到导航点/任务点</span>
+                        </div>
+                    </div>
+                    <p class="tutorial-tip">操作键位/热键可根据需要在配置文件内自行修改</p>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h3>启动流程</h3>
+                <div class="tutorial-card">
+                    <ol class="step-list">
+                        <li>
+                            <strong>关闭内核隔离</strong>
+                            <p>关闭 Windows 系统的内核隔离，然后重启电脑</p>
+                        </li>
+                        <li>
+                            <strong>关闭反作弊</strong>
+                            <p>卸载或关闭开机预启动的反作弊（如 Vanguard、ACE 等）</p>
+                        </li>
+                        <li>
+                            <strong>解压文件</strong>
+                            <p>解压下载的压缩文件</p>
+                        </li>
+                        <li>
+                            <strong>驱动加载</strong>
+                            <p>在启动游戏前先运行一次程序（.exe 文件，随机进程名防检测）进行驱动加载，显示加载成功后关闭命令窗口，然后启动游戏（GTA5 增强版）</p>
+                        </li>
+                        <li>
+                            <strong>启动菜单</strong>
+                            <p>打开游戏后进入到故事模式，再次运行程序，启动菜单</p>
+                        </li>
+                        <li>
+                            <strong>安装中文</strong>
+                            <p>菜单默认为英文，双击运行 install_chinese.bat 即可安装中文语言文件</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h3>驱动加载说明</h3>
+                <div class="tutorial-card">
+                    <div class="status-list">
+                        <div class="status-item success">
+                            <span class="status-icon">
+                                <svg viewBox="0 0 24 24" fill="#34d399" width="24" height="24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </span>
+                            <div>
+                                <strong>驱动加载成功</strong>
+                                <p>命令窗口显示：[+] Operation Completed Successfully</p>
+                            </div>
+                        </div>
+                        <div class="status-item error">
+                            <span class="status-icon">
+                                <svg viewBox="0 0 24 24" fill="#f87171" width="24" height="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                            </span>
+                            <div>
+                                <strong>驱动加载失败</strong>
+                                <p>命令窗口显示：Failed To Load Driver</p>
+                                <p class="status-tip">可能是下载微软符号文件失败，加速微软相关或者科学上网后重试，或者重启电脑</p>
+                            </div>
+                        </div>
+                        <div class="status-item loading">
+                            <span class="status-icon">
+                                <svg viewBox="0 0 24 24" fill="#fbbf24" width="24" height="24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                            </span>
+                            <div>
+                                <strong>驱动正在加载</strong>
+                                <p>命令窗口显示：Loading KD..</p>
+                                <p class="status-tip">正在下载文件，需要耐心等待，直至加载成功</p>
+                            </div>
+                        </div>
+                        <div class="status-item unsupported">
+                            <span class="status-icon">
+                                <svg viewBox="0 0 24 24" fill="#fb923c" width="24" height="24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                            </span>
+                            <div>
+                                <strong>驱动无法加载</strong>
+                                <p>命令窗口显示：Error: Unsupported Windows Version</p>
+                                <p class="status-tip">当前的 Windows 系统不支持使用</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="tutorial-tip">如果驱动加载部分出现各种问题请自行排查解决，只有加载成功才能正常使用</p>
+                    <p class="tutorial-tip">Error Code: 536870921 并不是错误，只是检测 GTA 相关进程，按启动流程的步骤进行即可</p>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h3>配置目录</h3>
+                <div class="tutorial-card">
+                    <p><strong>菜单配置目录：</strong> <code>%UserProfile%\AppData\Roaming\Alice2333</code></p>
+                    <p><strong>Lua 文件目录：</strong> <code>%UserProfile%\AppData\Roaming\Alice2333\lua_scripts</code></p>
+                    <p class="tutorial-tip">Lua 文件需要放到 lua_scripts 目录下</p>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h3>温馨提示</h3>
+                <div class="tutorial-card info">
+                    <p>使用 Alice2333 Menu 每次开机后只需加载一次驱动，重启电脑驱动自动卸载</p>
+                    <p>为规避 BattlEye，Alice menu 目前采用每日更新策略，次日会自动过期程序无法打开，游玩前自行下载新版本即可</p>
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h3>作者说</h3>
+                <div class="tutorial-card quote">
+                    <p>别天天评判这个不好那个不好，爱用不用，逼你用了？上面的东西看完了吗你就用</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lua -->
+    <section id="lua-download" class="lua-download">
+        <div class="section-header">
+            <span class="section-label">SCRIPTS</span>
+            <h2 class="section-title">Lua 脚本</h2>
+            <p class="section-subtitle">官方作者制作 Lua 脚本，丰富游戏体验</p>
+        </div>
+        <div class="lua-grid" id="luaGrid">
+            <!-- JS动态生成 -->
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Alice2333</h4>
+                <p>由原小助手开发者独立开发的 GTA5 增强版辅助修改器，提供顶级游戏增强解决方案，帮助玩家突破极限，享受游戏乐趣。</p>
+            </div>
+            <div class="footer-section">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#features">功能</a></li>
+                    <li><a href="#download">下载</a></li>
+                    <li><a href="#tutorial">教程</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>支持</h4>
+                <ul>
+                    <li><a href="https://qm.qq.com/q/fpxfAjbIEE" target="_blank">QQ 官方群</a></li>
+                    <li><a href="#tutorial">使用教程</a></li>
+                    <li><a href="#">常见问题</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>法律信息</h4>
+                <ul>
+                    <li><a href="#">服务条款</a></li>
+                    <li><a href="#">隐私政策</a></li>
+                    <li><a href="#">免责声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Alice2333. All rights reserved.By 知恩</p>
+        </div>
+    </footer>
+
+    <!-- 返回顶部 -->
+    <button class="back-to-top" id="backToTop">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+        </svg>
+    </button>
+
+<script src="protection.min.js"></script>
+<script src="script.min.js"></script>
+</body>
+</html>
