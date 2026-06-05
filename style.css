@@ -2285,25 +2285,32 @@ code {
         border-bottom: none;
     }
 
-    /* 视频 - iOS Safari 修复 */
+    /* 视频 - 移动端修复黑边 */
     .bg-video-wrap {
         position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
 
     .bg-video {
-        transform: scale(1.05);
-        -webkit-transform: translateZ(0) scale(1.05);
+        top: -3%;
+        transform: scale(1.2);
+        -webkit-transform: translateZ(0) scale(1.2);
+        object-position: center top;
     }
 
     .bg-video-overlay {
         background: linear-gradient(
             180deg,
-            rgba(5, 5, 8, 0.35) 0%,
-            rgba(5, 5, 8, 0.55) 25%,
-            rgba(5, 5, 8, 0.75) 50%,
-            rgba(5, 5, 8, 0.92) 80%,
+            rgba(5, 5, 8, 0.55) 0%,
+            rgba(5, 5, 8, 0.65) 20%,
+            rgba(5, 5, 8, 0.8) 45%,
+            rgba(5, 5, 8, 0.93) 75%,
             rgba(5, 5, 8, 0.98) 100%
         );
     }
