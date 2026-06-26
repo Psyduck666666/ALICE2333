@@ -571,5 +571,56 @@
 
 <script src="protection.min.js"></script>
 <script src="script.min.js"></script>
+<script>
+// Lua自动加载 - GitHub API
+(function(){
+    var REPO='Zhou377/ALICE2333',BRANCH='main',BASE='Lua';
+    var grid=document.getElementById('luaGrid');
+    if(!grid)return;
+    grid.innerHTML='<div class="lua-loading">加载脚本列表中...</div>';
+    function ver(n){var m=n.match(/[Vv](\d[\d.]*)/);return m?m[1]:'1.0';}
+    function avatar(files,author){
+        var f=files.find(function(x){return x.type==='file'&&!x.name.endsWith('.lua')&&(x.name.toLowerCase().includes('avatar')||/\.(jpg|jpeg|png|gif|webp)$/i.test(x.name));});
+        return f?'https://raw.githubusercontent.com/'+REPO+'/'+BRANCH+'/'+BASE+'/'+encodeURIComponent(author)+'/'+encodeURIComponent(f.name):null;
+    }
+    function fallback(name){return'https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=7c5cfc&color=fff&size=80';}
+    fetch('https://api.github.com/repos/'+REPO+'/contents/'+BASE+'?ref='+BRANCH,{headers:{'Accept':'application/vnd.github.v3+json'}})
+    .then(function(r){if(!r.ok)throw new Error('fail');return r.json();})
+    .then(function(dirs){
+        var authors=dirs.filter(function(d){return d.type==='dir';});
+        if(!authors.length){grid.innerHTML='<div class="lua-loading">暂无脚本</div>';return;}
+        grid.innerHTML='';
+        authors.forEach(function(a){
+            fetch(a.url,{headers:{'Accept':'application/vnd.github.v3+json'}})
+            .then(function(r){if(!r.ok)return;return r.json();})
+            .then(function(files){
+                if(!files)return;
+                var luas=files.filter(function(f){return f.type==='file'&&f.name.endsWith('.lua');});
+                if(!luas.length)return;
+                var av=avatar(files,a.name);
+                luas.forEach(function(lua){
+                    var card=document.createElement('div');
+                    card.className='lua-card reveal';
+                    var imgSrc=av||fallback(a.name);
+                    card.innerHTML='<div class="lua-card-avatar"><img src="'+imgSrc+'" alt="'+a.name+'" class="lua-avatar-img" onerror="this.src=\''+fallback(a.name)+'\'"></div><h3 class="lua-card-title">'+a.name+'</h3><div class="lua-card-version">v'+ver(lua.name)+'</div><p class="lua-card-description">'+a.name+' 制作的 Lua 脚本，丰富游戏功能增强</p><button class="lua-download-btn" data-path="'+a.name+'/'+lua.name+'" data-name="'+a.name+'"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>下载脚本</button>';
+                    grid.appendChild(card);
+                    if(typeof observer!=='undefined')observer.observe(card);
+                    card.querySelector('.lua-download-btn').addEventListener('click',function(){
+                        var p=this.getAttribute('data-path'),n=this.getAttribute('data-name');
+                        var link=document.createElement('a');
+                        link.href='https://raw.githubusercontent.com/'+REPO+'/'+BRANCH+'/'+BASE+'/'+encodeURIComponent(p);
+                        link.download=p.split('/').pop();link.target='_blank';
+                        document.body.appendChild(link);link.click();document.body.removeChild(link);
+                        if(typeof showDownloadToast==='function')showDownloadToast(n);
+                    });
+                });
+            }).catch(function(){});
+        });
+    }).catch(function(e){
+        console.error('Lua加载失败:',e);
+        grid.innerHTML='<div class="lua-loading">加载失败，请刷新重试</div>';
+    });
+})();
+</script>
 </body>
 </html>
