@@ -1919,6 +1919,14 @@ code {
     height: 14px;
 }
 
+.lua-loading {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 3rem 1rem;
+    font-size: 0.95rem;
+    grid-column: 1 / -1;
+}
+
 /* 评价 */
 .reviews {
     padding: 8rem 2rem;
