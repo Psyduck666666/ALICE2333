@@ -15,7 +15,7 @@
     --bg-card-hover: rgba(17, 17, 25, 0.6);
     --bg-elevated: rgba(20, 20, 30, 0.5);
 
-    /* 玻璃态 */
+    /* 毛玻璃 */
     --glass-bg: rgba(10, 10, 18, 0.45);
     --glass-bg-hover: rgba(15, 15, 25, 0.55);
     --glass-border: rgba(255, 255, 255, 0.06);
@@ -601,8 +601,6 @@ body {
     display: none;
 }
 
-/* Hero底部过渡 - 已移除 */
-
 /* 按钮 */
 .btn {
     padding: 0.9rem 2.2rem;
@@ -645,7 +643,7 @@ body {
     background: rgba(255, 255, 255, 0.06);
 }
 
-/* Section通用 */
+/* 通用 */
 .section-header {
     text-align: center;
     margin-bottom: 4rem;
@@ -2155,7 +2153,7 @@ code {
 }
 
 @media (max-width: 768px) {
-    /* 玻璃态降级 - 移动端使用实色背景避免黑色方块 */
+    /* 移动端实色背景 */
     .feature-card,
     .stability-banner,
     .download-card,
@@ -2293,7 +2291,7 @@ code {
         border-bottom: none;
     }
 
-    /* 视频 - 移动端修复黑边 */
+    /* 移动端视频 */
     .bg-video-wrap {
         position: fixed;
         top: 0;
@@ -2323,7 +2321,7 @@ code {
         );
     }
 
-    /* 光效缩小防溢出 */
+    /* 移动端光效 */
     .ambient-orb:nth-child(1) {
         width: 300px;
         height: 300px;
@@ -2525,7 +2523,7 @@ code {
         padding: 1.25rem;
     }
 
-    /* 代码防溢出 */
+    /* code换行 */
     code {
         word-break: break-all;
         white-space: normal;

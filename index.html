@@ -520,7 +520,7 @@
             <p class="section-subtitle">官方作者制作 Lua 脚本，丰富游戏体验</p>
         </div>
         <div class="lua-grid" id="luaScriptsGrid">
-            <!-- JS动态生成 -->
+            <!-- 动态加载 -->
         </div>
     </section>
 
@@ -572,7 +572,7 @@
 <script src="protection.min.js"></script>
 <script src="script.min.js"></script>
 <script>
-// Lua自动加载 - GitHub API + 本地文件
+// lua脚本加载
 (function(){
     var REPO='Zhou377/ALICE2333',BRANCH='main',BASE='Lua';
     var grid=document.getElementById('luaScriptsGrid');
@@ -600,7 +600,7 @@
         var f=files.find(function(x){return x.type==='file'&&!x.name.endsWith('.lua')&&(x.name.toLowerCase().includes('avatar')||/\.(jpg|jpeg|png|gif|webp)$/i.test(x.name));});
         return f?f.name:null;
     }
-    // 备用数据
+    // 备用
     function loadBackup(){
         grid.innerHTML='';
         [{name:'Glice',file:'Glice0413.lua',img:'Glice.png'},
