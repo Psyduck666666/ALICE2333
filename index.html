@@ -572,41 +572,50 @@
 <script src="protection.min.js"></script>
 <script src="script.min.js"></script>
 <script>
-// Lua自动加载 - GitHub API
+// Lua自动加载 - GitHub API + 本地文件
 (function(){
     var REPO='Zhou377/ALICE2333',BRANCH='main',BASE='Lua';
     var grid=document.getElementById('luaScriptsGrid');
     if(!grid)return;
     grid.innerHTML='<div class="lua-loading">加载脚本列表中...</div>';
     function ver(n){var m=n.match(/[Vv](\d[\d.]*)/);return m?m[1]:'1.0';}
-    function avatar(files,author){
-        var f=files.find(function(x){return x.type==='file'&&!x.name.endsWith('.lua')&&(x.name.toLowerCase().includes('avatar')||/\.(jpg|jpeg|png|gif|webp)$/i.test(x.name));});
-        return f?'https://raw.githubusercontent.com/'+REPO+'/'+BRANCH+'/'+BASE+'/'+encodeURIComponent(author)+'/'+encodeURIComponent(f.name):null;
-    }
     function fallback(name){return'https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=7c5cfc&color=fff&size=80';}
-    function renderCard(author,luaFile,av){
+    function renderCard(author,luaFile,imgFile){
         var card=document.createElement('div');
         card.className='lua-card reveal';
-        var imgSrc=av||fallback(author);
+        var imgSrc=imgFile?BASE+'/'+encodeURIComponent(author)+'/'+encodeURIComponent(imgFile):fallback(author);
         card.innerHTML='<div class="lua-card-avatar"><img src="'+imgSrc+'" alt="'+author+'" class="lua-avatar-img" onerror="this.src=\''+fallback(author)+'\'"></div><h3 class="lua-card-title">'+author+'</h3><div class="lua-card-version">v'+ver(luaFile.name)+'</div><p class="lua-card-description">'+author+' 制作的 Lua 脚本，丰富游戏功能增强</p><button class="lua-download-btn" data-path="'+author+'/'+luaFile.name+'" data-name="'+author+'"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>下载脚本</button>';
         grid.appendChild(card);
         if(typeof observer!=='undefined')observer.observe(card);
         card.querySelector('.lua-download-btn').addEventListener('click',function(){
             var p=this.getAttribute('data-path'),n=this.getAttribute('data-name');
             var link=document.createElement('a');
-            link.href='https://raw.githubusercontent.com/'+REPO+'/'+BRANCH+'/'+BASE+'/'+encodeURIComponent(p);
+            link.href=BASE+'/'+encodeURIComponent(p);
             link.download=p.split('/').pop();link.target='_blank';
             document.body.appendChild(link);link.click();document.body.removeChild(link);
             if(typeof showDownloadToast==='function')showDownloadToast(n);
         });
     }
+    function findImg(files){
+        var f=files.find(function(x){return x.type==='file'&&!x.name.endsWith('.lua')&&(x.name.toLowerCase().includes('avatar')||/\.(jpg|jpeg|png|gif|webp)$/i.test(x.name));});
+        return f?f.name:null;
+    }
+    // 备用数据
+    function loadBackup(){
+        grid.innerHTML='';
+        [{name:'Glice',file:'Glice0413.lua',img:'Glice.png'},
+         {name:'Klice',file:'Klice.lua',img:'Klice.jpg'},
+         {name:'Wlice',file:'Wlice0.1.lua',img:'Wlice.jpg'},
+         {name:'知恩',file:'zhienV2.1.lua',img:'zhien.jpg'},
+         {name:'麻勒勒',file:'麻勒勒V1.1.3.lua',img:'麻勒勒.jpg'}
+        ].forEach(function(b){renderCard(b.name,{name:b.file},b.img);});
+    }
     fetch('https://api.github.com/repos/'+REPO+'/contents/'+BASE+'?ref='+BRANCH,{headers:{'Accept':'application/vnd.github.v3+json'}})
     .then(function(r){if(!r.ok)throw new Error('API '+r.status);return r.json();})
     .then(function(dirs){
         var authors=dirs.filter(function(d){return d.type==='dir';});
-        if(!authors.length){grid.innerHTML='<div class="lua-loading">暂无脚本</div>';return;}
+        if(!authors.length){loadBackup();return;}
         grid.innerHTML='';
-        var pending=authors.length;
         authors.forEach(function(a){
             fetch(a.url,{headers:{'Accept':'application/vnd.github.v3+json'}})
             .then(function(r){if(!r.ok)return;return r.json();})
@@ -614,25 +623,13 @@
                 if(!files)return;
                 var luas=files.filter(function(f){return f.type==='file'&&f.name.endsWith('.lua');});
                 if(!luas.length)return;
-                var av=avatar(files,a.name);
-                luas.forEach(function(lua){renderCard(a.name,lua,av);});
+                var img=findImg(files);
+                luas.forEach(function(lua){renderCard(a.name,lua,img);});
             }).catch(function(){});
         });
     }).catch(function(e){
         console.warn('API加载失败，使用备用:',e);
-        // 备用：直接用已知目录结构
-        grid.innerHTML='';
-        var backup=[
-            {name:'Glice',file:'Glice0413.lua',img:'Glice.png'},
-            {name:'Klice',file:'Klice.lua',img:'Klice.jpg'},
-            {name:'Wlice',file:'Wlice0.1.lua',img:'Wlice.jpg'},
-            {name:'知恩',file:'zhienV2.1.lua',img:'zhien.jpg'},
-            {name:'麻勒勒',file:'麻勒勒V1.1.3.lua',img:'麻勒勒.jpg'}
-        ];
-        backup.forEach(function(b){
-            var av='https://raw.githubusercontent.com/'+REPO+'/'+BRANCH+'/'+BASE+'/'+encodeURIComponent(b.name)+'/'+encodeURIComponent(b.img);
-            renderCard(b.name,{name:b.file},av);
-        });
+        loadBackup();
     });
 })();
 </script>
